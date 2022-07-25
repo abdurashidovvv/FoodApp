@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp"
+    tools:context=".AddFood">
+    
+    <EditText
+        android:id="@+id/edt_1"
+        android:background="@drawable/addfood"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".1"
+        android:hint="Taom nomi:"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edt_2"/>
+
+    <EditText
+        android:id="@+id/edt_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/addfood"
+        android:gravity="left|top"
+        android:hint="Kerakli mahsulotlar: "
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/edt_3"
+        app:layout_constraintHeight_percent=".3"
+        app:layout_constraintTop_toBottomOf="@id/edt_1"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <EditText
+        android:id="@+id/edt_3"
+        android:background="@drawable/addfood"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".4"
+        android:hint="Taom tayyorlanish tartibi: "
+        android:gravity="left|top"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/edt_2"
+        app:layout_constraintBottom_toTopOf="@id/btn_card"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".075"
+        app:layout_constraintWidth_percent=".4"
+        app:layout_constraintTop_toBottomOf="@id/edt_3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
+        <TextView
+            android:id="@+id/btn_saqlash"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#22E286"
+            android:textColor="@color/white"
+            android:text="Saqlash"
+            android:textSize="25sp"/>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
