@@ -73,9 +73,9 @@ dependencies {
     implementation(libs.androidx.animation)
 
     // Room Database
-    implementation("androidx.room:room-runtime:2.4.0")
-    kapt("androidx.room:room-compiler:2.4.0")
-    implementation("androidx.room:room-ktx:2.4.0")
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     //retrofit
     implementation(libs.retrofit)
@@ -85,4 +85,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+    //Coil
+    implementation(libs.coil.compose)
 }

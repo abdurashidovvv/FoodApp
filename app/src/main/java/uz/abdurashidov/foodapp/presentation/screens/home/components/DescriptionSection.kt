@@ -1,4 +1,4 @@
-package uz.abdurashidov.foodapp.presentation.screens.components
+package uz.abdurashidov.foodapp.presentation.screens.home.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

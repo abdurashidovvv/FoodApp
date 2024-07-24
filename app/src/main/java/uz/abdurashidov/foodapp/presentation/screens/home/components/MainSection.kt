@@ -1,4 +1,4 @@
-package uz.abdurashidov.foodapp.presentation.screens.components
+package uz.abdurashidov.foodapp.presentation.screens.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -90,7 +90,7 @@ fun MainRecipeCard(modifier: Modifier = Modifier, food: Food) {
                 fontSize = 10.sp
             )
             Text(
-                text = food.name,
+                text = food.foodName,
                 color = Color.White,
                 fontFamily = LoraRegular,
                 fontSize = 10.sp
@@ -150,10 +150,5 @@ fun MainRecipeCard(modifier: Modifier = Modifier, food: Food) {
 @Preview
 @Composable
 private fun MainSectionPreview() {
-    MainSection(foods = listOf(
-        Food(name = "Toast with Berries"),
-        Food(name = "Toast with Berries"),
-        Food(name = "Toast with Berries"),
-        Food(name = "Toast with Berries"),
-    ))
+    MainSection(foods = listOf())
 }

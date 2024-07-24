@@ -1,4 +1,4 @@
-package uz.abdurashidov.foodapp.presentation.screens.components
+package uz.abdurashidov.foodapp.presentation.screens.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,22 +18,26 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.rememberImagePainter
 import uz.abdurashidov.foodapp.R
 import uz.abdurashidov.foodapp.domain.models.Food
 import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
 import uz.abdurashidov.foodapp.presentation.theme.MainTextColor
 
 @Composable
-fun RecommendationSection(modifier: Modifier = Modifier, foods: List<Food>) {
+fun RecommendationSection(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier.padding(15.dp)
     ) {
@@ -56,11 +60,7 @@ fun RecommendationSection(modifier: Modifier = Modifier, foods: List<Food>) {
         }
 
         Spacer(modifier = Modifier.height(10.dp))
-        LazyColumn {
-            items(foods) { food ->
-                RecommendationItemCard(food = food)
-            }
-        }
+
     }
 }
 
@@ -80,16 +80,19 @@ fun RecommendationItemCard(modifier: Modifier = Modifier, food: Food) {
                 .padding(vertical = 5.dp, horizontal = 10.dp)
         ) {
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(20.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth(.8f)
                     .padding(end = 40.dp) // Add some padding to the end to avoid overlap with the corner icon
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.cake),
-                    contentDescription = null,
-                    Modifier.size(65.dp)
+                SubcomposeAsyncImage(
+                    model = food.foodImageURL,
+                    loading = {
+                        CircularProgressIndicator()
+                    },
+                    contentDescription = food.foodName,
+                    modifier = Modifier.size(65.dp)
                 )
 
                 Column(
@@ -97,7 +100,7 @@ fun RecommendationItemCard(modifier: Modifier = Modifier, food: Food) {
                     modifier = Modifier.fillMaxHeight()
                 ) {
                     Text(
-                        text = food.name,
+                        text = food.foodName,
                         fontSize = 18.sp,
                         color = Color.White,
                         fontFamily = LoraRegular
@@ -167,13 +170,5 @@ fun RecommendationItemCard(modifier: Modifier = Modifier, food: Food) {
 @Preview
 @Composable
 private fun RecommendationSectionPreview() {
-    RecommendationSection(
-        foods = listOf(
-            Food(name = "Chocolate Cake"),
-            Food(name = "Chocolate Cake"),
-            Food(name = "Chocolate Cake"),
-            Food(name = "Chocolate Cake"),
-            Food(name = "Chocolate Cake"),
-        )
-    )
+    RecommendationSection()
 }
