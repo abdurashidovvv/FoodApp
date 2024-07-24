@@ -10,14 +10,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import uz.abdurashidov.foodapp.presentation.screens.components.AppBar
+import uz.abdurashidov.foodapp.presentation.screens.components.DescriptionSection
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     Scaffold{
         Column(
-            modifier = Modifier.fillMaxSize().padding(it).background(Color.Black)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+                .background(Color.Black)
         ) {
             AppBar(menuOnClicked = {})
+            DescriptionSection()
         }
     }
 }

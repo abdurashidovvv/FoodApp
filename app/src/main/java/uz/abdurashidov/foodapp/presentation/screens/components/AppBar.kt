@@ -20,7 +20,7 @@ fun AppBar(modifier: Modifier = Modifier, menuOnClicked: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp)
+            .padding(20.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.burger_menu),
