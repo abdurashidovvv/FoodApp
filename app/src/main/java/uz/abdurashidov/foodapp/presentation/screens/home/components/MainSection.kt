@@ -12,17 +12,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
 import uz.abdurashidov.foodapp.R
 import uz.abdurashidov.foodapp.domain.models.Food
 import uz.abdurashidov.foodapp.presentation.theme.LaunchTimeTextColor
@@ -76,10 +80,15 @@ fun MainRecipeCard(modifier: Modifier = Modifier, food: Food) {
                 )
 
                 Spacer(modifier = Modifier.width(40.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.meal),
-                    contentDescription = null,
-                    modifier = Modifier.size(99.dp)
+                SubcomposeAsyncImage(
+                    model = food.foodImageURL,
+                    loading = {
+                        CircularProgressIndicator()
+                    },
+                    contentDescription = food.foodName,
+                    modifier = Modifier
+                        .size(99.dp)
+                        .clip(RoundedCornerShape(20.dp))
                 )
             }
 
