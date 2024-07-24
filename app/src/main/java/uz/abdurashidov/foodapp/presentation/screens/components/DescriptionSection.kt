@@ -20,7 +20,7 @@ import uz.abdurashidov.foodapp.presentation.theme.MainTextColor
 @Composable
 fun DescriptionSection(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier.padding(20.dp)
+        modifier = Modifier.padding(15.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -30,7 +30,7 @@ fun DescriptionSection(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "What would you like\n\n" +
+            text = "What would you like\n" +
                     "to cook today?",
             fontSize = 34.sp,
             fontFamily = LoraBold,

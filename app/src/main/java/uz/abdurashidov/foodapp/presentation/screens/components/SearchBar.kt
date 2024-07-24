@@ -40,7 +40,7 @@ fun SearchBar(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp)
+            .padding(15.dp)
     ) {
         OutlinedTextField(
             value = searchState.value,
