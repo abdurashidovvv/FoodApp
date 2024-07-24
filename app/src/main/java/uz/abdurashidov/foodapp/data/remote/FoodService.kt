@@ -8,5 +8,5 @@ import uz.abdurashidov.foodapp.data.remote.models.GetMealsByCategoryResponse
 interface FoodService {
 
     @GET("filter.php")
-    fun getMealsByCategory(@Query("c") category: String): Response<GetMealsByCategoryResponse>
+    suspend fun getMealsByCategory(@Query("c") category: String): Response<GetMealsByCategoryResponse>
 }
