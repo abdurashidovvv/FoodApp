@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import uz.abdurashidov.foodapp.presentation.screens.components.AppBar
 import uz.abdurashidov.foodapp.presentation.screens.components.DescriptionSection
+import uz.abdurashidov.foodapp.presentation.screens.components.SearchBar
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
@@ -23,6 +24,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         ) {
             AppBar(menuOnClicked = {})
             DescriptionSection()
+            SearchBar()
         }
     }
 }
