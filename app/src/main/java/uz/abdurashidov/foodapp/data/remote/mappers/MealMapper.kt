@@ -1,6 +1,6 @@
 package uz.abdurashidov.foodapp.data.remote.mappers
 
-import uz.abdurashidov.foodapp.data.remote.models.GetMealsByCategoryResponse
+import uz.abdurashidov.foodapp.data.remote.models.GetFoodByCategory.GetMealsByCategoryResponse
 import uz.abdurashidov.foodapp.domain.models.Food
 
 fun GetMealsByCategoryResponse.toListFood(): List<Food> {

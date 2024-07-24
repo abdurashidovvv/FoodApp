@@ -7,8 +7,10 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import uz.abdurashidov.foodapp.data.remote.FoodService
+import uz.abdurashidov.foodapp.data.remote.repositories.FoodServiceRepositoryImpl
 import uz.abdurashidov.foodapp.data.remote.source.FoodServiceDataSource
 import uz.abdurashidov.foodapp.data.remote.source.FoodServiceDataSourceImpl
+import uz.abdurashidov.foodapp.domain.repositories.FoodServiceRepository
 import javax.inject.Singleton
 
 @Module
@@ -33,6 +35,12 @@ class NetworkModule {
     @Singleton
     fun provideFoodServiceDataSource(foodService: FoodService): FoodServiceDataSource {
         return FoodServiceDataSourceImpl(foodService = foodService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRepository(foodServiceDataSource: FoodServiceDataSource): FoodServiceRepository {
+        return FoodServiceRepositoryImpl(foodServiceDataSource = foodServiceDataSource)
     }
 
 }
