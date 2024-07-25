@@ -2,6 +2,7 @@ package uz.abdurashidov.foodapp.presentation.screens.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -61,12 +62,19 @@ fun RecommendationSection(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RecommendationItemCard(modifier: Modifier = Modifier, food: Food) {
+fun RecommendationItemCard(
+    modifier: Modifier = Modifier,
+    foodCardOnClicked: (String) -> Unit,
+    food: Food
+) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFF373737)
         ),
         modifier = Modifier
+            .clickable {
+                foodCardOnClicked(food.foodId)
+            }
             .padding(bottom = 5.dp)
             .fillMaxWidth()
     ) {

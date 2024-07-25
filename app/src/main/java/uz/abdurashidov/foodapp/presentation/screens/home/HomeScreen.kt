@@ -87,7 +87,9 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
 
                 is DataState.Success -> {
                     items((foods as DataState.Success<List<Food>>).data) { food ->
-                        RecommendationItemCard(food = food)
+                        RecommendationItemCard(food = food, foodCardOnClicked = {
+                            navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
+                        })
                     }
                 }
             }

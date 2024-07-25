@@ -28,7 +28,7 @@ fun AppNavHost(
             )
         ) { backStackEntry ->
             val foodId = backStackEntry.arguments?.getString("foodId") ?: "52959"
-            DetailScreen(foodId = foodId)
+            DetailScreen(navController = navController, foodId = foodId)
         }
     }
 }

@@ -1,6 +1,7 @@
 package uz.abdurashidov.foodapp.presentation.screens.detail.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import uz.abdurashidov.foodapp.R
 
 @Composable
-fun DetailBar(modifier: Modifier = Modifier) {
+fun DetailBar(modifier: Modifier = Modifier, backOnClicked: () -> Unit) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
@@ -24,7 +25,11 @@ fun DetailBar(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.back_ic),
             contentDescription = null,
-            modifier = Modifier.size(27.dp)
+            modifier = Modifier
+                .size(27.dp)
+                .clickable {
+                    backOnClicked()
+                }
         )
         Image(
             painter = painterResource(id = R.drawable.notification_ic),
@@ -34,8 +39,8 @@ fun DetailBar(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
-@Composable
-private fun DetailBarPreview() {
-    DetailBar()
-}
+//@Preview
+//@Composable
+//private fun DetailBarPreview() {
+//    DetailBar()
+//}

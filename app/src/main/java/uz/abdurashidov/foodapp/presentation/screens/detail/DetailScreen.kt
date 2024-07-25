@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import uz.abdurashidov.foodapp.domain.models.MealDetail
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.DescriptionSection
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.DetailBar
@@ -27,7 +28,7 @@ import uz.abdurashidov.foodapp.utils.DataState
 import javax.annotation.meta.When
 
 @Composable
-fun DetailScreen(modifier: Modifier = Modifier, foodId: String) {
+fun DetailScreen(modifier: Modifier = Modifier, navController: NavController, foodId: String) {
 
     val detailViewModel: DetailViewModel = hiltViewModel()
 
@@ -47,9 +48,11 @@ fun DetailScreen(modifier: Modifier = Modifier, foodId: String) {
                 .background(Color.Black)
 
         ) {
-            DetailBar()
+            DetailBar(backOnClicked = {
+                navController.navigateUp()
+            })
             when (food) {
-                is DataState.Error -> TODO()
+                is DataState.Error -> {}
                 is DataState.Loading -> {
                     Box(modifier = Modifier.fillMaxSize()) {
                         CircularProgressIndicator()
