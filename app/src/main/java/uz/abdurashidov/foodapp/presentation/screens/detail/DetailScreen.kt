@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import uz.abdurashidov.foodapp.presentation.screens.detail.components.DescriptionSection
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.DetailBar
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.TitleSection
 
@@ -23,6 +24,7 @@ fun DetailScreen(modifier: Modifier = Modifier) {
         ) {
             DetailBar()
             TitleSection()
+            DescriptionSection()
         }
     }
 }
