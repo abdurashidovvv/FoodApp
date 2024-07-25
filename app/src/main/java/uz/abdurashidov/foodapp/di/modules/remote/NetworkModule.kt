@@ -14,6 +14,8 @@ import uz.abdurashidov.foodapp.data.remote.source.FoodServiceDataSourceImpl
 import uz.abdurashidov.foodapp.domain.repositories.FoodServiceRepository
 import uz.abdurashidov.foodapp.domain.usecases.GetFoodByCategory.GetFoodByCategoryUseCase
 import uz.abdurashidov.foodapp.domain.usecases.GetFoodByCategory.GetFoodByCategoryUseCaseImpl
+import uz.abdurashidov.foodapp.domain.usecases.GetFoodByFoodId.GetFoodByFoodIdUseCase
+import uz.abdurashidov.foodapp.domain.usecases.GetFoodByFoodId.GetFoodByFoodIdUseCaseImpl
 import javax.inject.Singleton
 
 @Module
@@ -50,5 +52,11 @@ class NetworkModule {
     @Singleton
     fun provideGetFoodByCategoryUseCase(foodServiceRepository: FoodServiceRepository): GetFoodByCategoryUseCase {
         return GetFoodByCategoryUseCaseImpl(foodServiceRepository = foodServiceRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetFoodByFoodIdUseCase(foodServiceRepository: FoodServiceRepository):GetFoodByFoodIdUseCase{
+        return GetFoodByFoodIdUseCaseImpl(foodServiceRepository = foodServiceRepository)
     }
 }
