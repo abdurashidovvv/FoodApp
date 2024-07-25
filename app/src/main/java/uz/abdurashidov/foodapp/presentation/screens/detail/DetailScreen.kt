@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.DescriptionSection
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.DetailBar
+import uz.abdurashidov.foodapp.presentation.screens.detail.components.IngredientSection
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.TitleSection
 
 @Composable
@@ -25,6 +26,7 @@ fun DetailScreen(modifier: Modifier = Modifier) {
             DetailBar()
             TitleSection()
             DescriptionSection()
+            IngredientSection()
         }
     }
 }
