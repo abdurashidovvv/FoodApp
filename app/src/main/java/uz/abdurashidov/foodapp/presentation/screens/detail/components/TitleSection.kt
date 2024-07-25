@@ -25,7 +25,7 @@ import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
 import uz.abdurashidov.foodapp.presentation.theme.LoraSemiBold
 
 @Composable
-fun TitleSection(modifier: Modifier = Modifier) {
+fun TitleSection(modifier: Modifier = Modifier, foodName:String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -42,7 +42,7 @@ fun TitleSection(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = "French Toast with Berries",
+                text = foodName,
                 fontFamily = LoraSemiBold,
                 color = Color.White,
                 fontSize = 21.sp
@@ -64,8 +64,8 @@ fun TitleSection(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
-@Composable
-private fun TitleSectionPreview() {
-    TitleSection()
-}
+//@Preview
+//@Composable
+//private fun TitleSectionPreview() {
+//    TitleSection()
+//}

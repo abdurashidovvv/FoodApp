@@ -1,6 +1,7 @@
 package uz.abdurashidov.foodapp.presentation.screens.detail.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,28 +19,27 @@ import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
 import uz.abdurashidov.foodapp.presentation.theme.LoraSemiBold
 
 @Composable
-fun IngredientSection(modifier: Modifier = Modifier) {
+fun IngredientSection(modifier: Modifier = Modifier, ingredients:List<Map<String, String>>) {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp)
     ) {
         Text(text = "Ingredients", color = Color.White, fontSize = 14.sp, fontFamily = LoraSemiBold)
         Spacer(modifier = Modifier.height(10.dp))
-        Text(text = "• 1 tblsp Olive Oil", color = DetailTextColor, fontFamily = LoraRegular)
-        Spacer(modifier = Modifier.height(2.dp))
-        Text(text = "• 1 large Onion", color = DetailTextColor, fontFamily = LoraRegular)
-        Spacer(modifier = Modifier.height(2.dp))
-        Text(text = "• 1 clove peeled crushed Garlic", color = DetailTextColor, fontFamily = LoraRegular)
-        Spacer(modifier = Modifier.height(2.dp))
-        Text(text = "• 2 tblsp Worcestershire Sauce", color = DetailTextColor, fontFamily = LoraRegular)
-        Spacer(modifier = Modifier.height(2.dp))
-        Text(text = "• 3 tsp Tomato Puree", color = DetailTextColor, fontFamily = LoraRegular)
-        Spacer(modifier = Modifier.height(2.dp))
-        Text(text = "• 500g Turkey Mince", color = DetailTextColor, fontFamily = LoraRegular)
+
+        for (ingredient in ingredients) {
+            Row {
+                Text(text = "• ${ingredient.values} ", color = DetailTextColor, fontFamily = LoraRegular)
+                Text(text = "${ingredient.values}", color = DetailTextColor, fontFamily = LoraRegular)
+            }
+            Spacer(modifier = Modifier.height(2.dp))
+        }
     }
 }
 
-@Preview
-@Composable
-private fun IngredientSectionPreview() {
-    IngredientSection()
-}
+//@Preview
+//@Composable
+//private fun IngredientSectionPreview() {
+//    IngredientSection()
+//}
