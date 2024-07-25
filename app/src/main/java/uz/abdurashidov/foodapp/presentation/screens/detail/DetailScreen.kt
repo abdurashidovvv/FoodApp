@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,14 +14,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.DescriptionSection
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.DetailBar
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.IngredientSection
+import uz.abdurashidov.foodapp.presentation.screens.detail.components.InstructionSection
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.TitleSection
 
 @Composable
 fun DetailScreen(modifier: Modifier = Modifier) {
+    val scrollState = rememberScrollState()
     Scaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(state = scrollState)
                 .background(Color.Black)
                 .padding(it)
         ) {
@@ -27,6 +32,7 @@ fun DetailScreen(modifier: Modifier = Modifier) {
             TitleSection()
             DescriptionSection()
             IngredientSection()
+            InstructionSection()
         }
     }
 }

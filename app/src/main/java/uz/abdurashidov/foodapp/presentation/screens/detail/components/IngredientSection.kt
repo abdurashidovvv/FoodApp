@@ -15,13 +15,14 @@ import androidx.compose.ui.unit.sp
 import uz.abdurashidov.foodapp.presentation.theme.DetailTextColor
 import uz.abdurashidov.foodapp.presentation.theme.LoraMedium
 import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
+import uz.abdurashidov.foodapp.presentation.theme.LoraSemiBold
 
 @Composable
 fun IngredientSection(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)
     ) {
-        Text(text = "Ingredients", color = Color.White, fontSize = 14.sp, fontFamily = LoraMedium)
+        Text(text = "Ingredients", color = Color.White, fontSize = 14.sp, fontFamily = LoraSemiBold)
         Spacer(modifier = Modifier.height(10.dp))
         Text(text = "• 1 tblsp Olive Oil", color = DetailTextColor, fontFamily = LoraRegular)
         Spacer(modifier = Modifier.height(2.dp))
