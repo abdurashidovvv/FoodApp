@@ -6,5 +6,5 @@ import uz.abdurashidov.foodapp.data.local.models.FoodEntity
 interface FoodLocalSource {
     suspend fun insertFood(foodEntity: FoodEntity)
     suspend fun getAllFavoriteFoods(): Flow<List<FoodEntity>>
-    suspend fun deleteMealById(foodId: String)
+    suspend fun deleteFoodById(foodId: String)
 }
