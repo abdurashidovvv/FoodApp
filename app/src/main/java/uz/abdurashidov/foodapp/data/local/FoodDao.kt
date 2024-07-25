@@ -14,8 +14,8 @@ interface FoodDao {
     suspend fun insertFood(foodEntity: FoodEntity)
 
     @Query("select * from foodentity")
-    suspend fun getAllFavoriteFoods(): Flow<List<Food>>
+    suspend fun getAllFavoriteFoods(): Flow<List<FoodEntity>>
 
     @Query("DELETE FROM foodentity WHERE foodId = :foodId")
-    suspend fun deleteMealById(foodId: String)
+    suspend fun deleteFoodById(foodId: String)
 }
