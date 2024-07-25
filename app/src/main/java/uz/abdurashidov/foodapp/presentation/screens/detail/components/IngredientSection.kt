@@ -19,7 +19,7 @@ import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
 import uz.abdurashidov.foodapp.presentation.theme.LoraSemiBold
 
 @Composable
-fun IngredientSection(modifier: Modifier = Modifier, ingredients:List<Map<String, String>>) {
+fun IngredientSection(modifier: Modifier = Modifier, ingredients: List<Map<String, String>>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,11 +29,21 @@ fun IngredientSection(modifier: Modifier = Modifier, ingredients:List<Map<String
         Spacer(modifier = Modifier.height(10.dp))
 
         for (ingredient in ingredients) {
-            Row {
-                Text(text = "• ${ingredient.values} ", color = DetailTextColor, fontFamily = LoraRegular)
-                Text(text = "${ingredient.values}", color = DetailTextColor, fontFamily = LoraRegular)
+            if (ingredient.keys.toString().isNotBlank()) {
+                Row {
+                    Text(
+                        text = "• ${ingredient.values.map { it }[0]} ",
+                        color = DetailTextColor,
+                        fontFamily = LoraRegular
+                    )
+                    Text(
+                        text = ingredient.keys.map { it }[0],
+                        color = DetailTextColor,
+                        fontFamily = LoraRegular
+                    )
+                }
+                Spacer(modifier = Modifier.height(2.dp))
             }
-            Spacer(modifier = Modifier.height(2.dp))
         }
     }
 }

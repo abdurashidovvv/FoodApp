@@ -19,7 +19,7 @@ fun DetailBar(modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp)
+            .padding(top = 25.dp, start = 15.dp, end = 15.dp, bottom = 15.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.back_ic),
