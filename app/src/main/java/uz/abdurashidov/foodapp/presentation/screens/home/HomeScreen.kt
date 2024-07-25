@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import uz.abdurashidov.foodapp.domain.models.Food
+import uz.abdurashidov.foodapp.presentation.navigation.NavigationItem
 import uz.abdurashidov.foodapp.presentation.screens.home.components.AppBar
 import uz.abdurashidov.foodapp.presentation.screens.home.components.DescriptionSection
 import uz.abdurashidov.foodapp.presentation.screens.home.components.MainSection
@@ -61,7 +62,10 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
 
                     is DataState.Success -> {
                         MainSection(
-                            foods = (foods as DataState.Success<List<Food>>).data
+                            foods = (foods as DataState.Success<List<Food>>).data,
+                            foodCardOnClicked = { foodId ->
+                                navController.navigate(NavigationItem.DetailScreen.route + "/$foodId")
+                            }
                         )
                     }
                 }

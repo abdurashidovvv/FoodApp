@@ -18,15 +18,16 @@ import uz.abdurashidov.foodapp.presentation.screens.detail.components.Instructio
 import uz.abdurashidov.foodapp.presentation.screens.detail.components.TitleSection
 
 @Composable
-fun DetailScreen(modifier: Modifier = Modifier) {
+fun DetailScreen(modifier: Modifier = Modifier, foodId:String) {
     val scrollState = rememberScrollState()
     Scaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(it)
                 .verticalScroll(state = scrollState)
                 .background(Color.Black)
-                .padding(it)
+
         ) {
             DetailBar()
             TitleSection()
@@ -37,8 +38,8 @@ fun DetailScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
-@Composable
-private fun DetailScreenPreview() {
-    DetailScreen()
-}
+//@Preview
+//@Composable
+//private fun DetailScreenPreview() {
+//    DetailScreen()
+//}

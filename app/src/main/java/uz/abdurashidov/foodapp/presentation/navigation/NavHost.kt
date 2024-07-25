@@ -3,9 +3,11 @@ package uz.abdurashidov.foodapp.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import uz.abdurashidov.foodapp.presentation.screens.detail.DetailScreen
 import uz.abdurashidov.foodapp.presentation.screens.home.HomeScreen
 
@@ -20,8 +22,13 @@ fun AppNavHost(
             HomeScreen(navController = navController)
         }
 
-        composable(NavigationItem.DetailScreen.route) {
-            DetailScreen()
+        composable(
+            NavigationItem.DetailScreen.route + "/{foodId}", arguments = listOf(
+                navArgument("foodId") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val foodId = backStackEntry.arguments?.getString("foodId") ?: "52959"
+            DetailScreen(foodId = foodId)
         }
     }
 }

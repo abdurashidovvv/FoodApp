@@ -17,10 +17,20 @@ import uz.abdurashidov.foodapp.R
 fun DetailBar(modifier: Modifier = Modifier) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth().padding(15.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp)
     ) {
-        Image(painter = painterResource(id = R.drawable.back_ic), contentDescription = null, modifier = Modifier.size(27.dp))
-        Image(painter = painterResource(id = R.drawable.notification_ic), contentDescription = null, modifier =Modifier.size(27.dp))
+        Image(
+            painter = painterResource(id = R.drawable.back_ic),
+            contentDescription = null,
+            modifier = Modifier.size(27.dp)
+        )
+        Image(
+            painter = painterResource(id = R.drawable.notification_ic),
+            contentDescription = null,
+            modifier = Modifier.size(27.dp)
+        )
     }
 }
 

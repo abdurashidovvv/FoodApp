@@ -1,6 +1,7 @@
 package uz.abdurashidov.foodapp.presentation.screens.home.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,7 +36,11 @@ import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
 import uz.abdurashidov.foodapp.presentation.theme.MainTextColor
 
 @Composable
-fun MainSection(modifier: Modifier = Modifier, foods: List<Food>) {
+fun MainSection(
+    modifier: Modifier = Modifier,
+    foods: List<Food>,
+    foodCardOnClicked: (String) -> Unit
+) {
     Column(modifier = Modifier.padding(20.dp)) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -55,19 +60,21 @@ fun MainSection(modifier: Modifier = Modifier, foods: List<Food>) {
 
         LazyRow {
             items(foods) { food ->
-                MainRecipeCard(food = food)
+                MainRecipeCard(food = food, foodCardOnClicked = foodCardOnClicked)
             }
         }
     }
 }
 
 @Composable
-fun MainRecipeCard(modifier: Modifier = Modifier, food: Food) {
+fun MainRecipeCard(modifier: Modifier = Modifier, food: Food, foodCardOnClicked: (String) -> Unit) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFF707070)
         ),
-        modifier = Modifier.padding(end = 10.dp)
+        modifier = Modifier
+            .clickable { foodCardOnClicked(food.foodId) }
+            .padding(end = 10.dp)
     ) {
         Column(
             modifier = Modifier.padding(10.dp)
@@ -155,9 +162,9 @@ fun MainRecipeCard(modifier: Modifier = Modifier, food: Food) {
         }
     }
 }
-
-@Preview
-@Composable
-private fun MainSectionPreview() {
-    MainSection(foods = listOf())
-}
+//
+//@Preview
+//@Composable
+//private fun MainSectionPreview() {
+//    MainSection(foods = listOf())
+//}
