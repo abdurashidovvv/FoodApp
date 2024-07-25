@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import uz.abdurashidov.foodapp.domain.models.Food
 import uz.abdurashidov.foodapp.presentation.screens.home.components.AppBar
 import uz.abdurashidov.foodapp.presentation.screens.home.components.DescriptionSection
@@ -27,7 +28,7 @@ import uz.abdurashidov.foodapp.presentation.screens.home.components.SearchBar
 import uz.abdurashidov.foodapp.utils.DataState
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
     val homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
     val foods by homeScreenViewModel.foods.collectAsState()
 
@@ -90,8 +91,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-private fun HomeScreenPreview() {
-    HomeScreen()
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//private fun HomeScreenPreview() {
+//    HomeScreen()
+//}
