@@ -26,7 +26,7 @@ class FavoriteViewModel @Inject constructor(
         getAllFavoriteFoods()
     }
 
-    private fun getAllFavoriteFoods() {
+     fun getAllFavoriteFoods() {
         viewModelScope.launch {
             getFavoriteFoodUseCase.invoke().collect {
                 _foods.value = it
@@ -34,13 +34,13 @@ class FavoriteViewModel @Inject constructor(
         }
     }
 
-    private fun addFavoriteFOod(food: Food) {
+     fun addFavoriteFOod(food: Food) {
         viewModelScope.launch {
             addFavoriteFoodUseCase.invoke(food = food)
         }
     }
 
-    private fun deleteFavoriteFood(food: Food) {
+     fun deleteFavoriteFood(food: Food) {
         viewModelScope.launch {
             deleteFavoriteFoodUseCase.invoke(food = food)
         }

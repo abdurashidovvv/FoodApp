@@ -7,11 +7,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import uz.abdurashidov.foodapp.data.FoodRepositoryImpl
 import uz.abdurashidov.foodapp.data.local.FoodDao
 import uz.abdurashidov.foodapp.data.local.FoodDatabase
 import uz.abdurashidov.foodapp.data.local.repositories.LocalFoodRepositoryImpl
 import uz.abdurashidov.foodapp.data.local.source.FoodLocalSource
 import uz.abdurashidov.foodapp.data.local.source.FoodLocalSourceImpl
+import uz.abdurashidov.foodapp.domain.repositories.FoodRepository
 import uz.abdurashidov.foodapp.domain.repositories.LocalFoodRepository
 import uz.abdurashidov.foodapp.domain.usecases.AddFavoriteFood.AddFavoriteFoodUseCase
 import uz.abdurashidov.foodapp.domain.usecases.AddFavoriteFood.AddFavoriteFoodUseCaseImpl
@@ -19,6 +21,8 @@ import uz.abdurashidov.foodapp.domain.usecases.DeleteFavoriteFood.DeleteFavorite
 import uz.abdurashidov.foodapp.domain.usecases.DeleteFavoriteFood.DeleteFavoriteFoodUseCaseImpl
 import uz.abdurashidov.foodapp.domain.usecases.GetFavoriteFood.GetFavoriteFoodUseCase
 import uz.abdurashidov.foodapp.domain.usecases.GetFavoriteFood.GetFavoriteFoodUseCaseImpl
+import uz.abdurashidov.foodapp.domain.usecases.IsFavorite.IsFavoriteUseCase
+import uz.abdurashidov.foodapp.domain.usecases.IsFavorite.IsFavoriteUseCaseImpl
 import javax.inject.Singleton
 
 @Module
@@ -67,5 +71,23 @@ class LocalModule {
     @Singleton
     fun provideGetFavoriteFoodUseCase(localFoodRepository: LocalFoodRepository): GetFavoriteFoodUseCase {
         return GetFavoriteFoodUseCaseImpl(localFoodRepository = localFoodRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideIsFoodRepository(localSource: FoodLocalSource): FoodRepository {
+        return FoodRepositoryImpl(
+            localSource
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideIsFavoriteUseCase(
+        foodRepository: FoodRepository
+    ): IsFavoriteUseCase {
+        return IsFavoriteUseCaseImpl(
+            foodRepository
+        )
     }
 }

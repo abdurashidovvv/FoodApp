@@ -5,7 +5,7 @@ import uz.abdurashidov.foodapp.domain.models.Food
 import uz.abdurashidov.foodapp.utils.DataState
 
 interface LocalFoodRepository {
-    fun insertFood(food: Food)
+    suspend fun insertFood(food: Food)
     fun deleteFood(food: Food)
     fun getAllFavoriteFoods(): Flow<DataState<List<Food>>>
 }

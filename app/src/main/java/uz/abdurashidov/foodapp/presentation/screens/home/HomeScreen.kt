@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import uz.abdurashidov.foodapp.domain.models.Food
 import uz.abdurashidov.foodapp.presentation.navigation.NavigationItem
+import uz.abdurashidov.foodapp.presentation.screens.favorite.FavoriteViewModel
 import uz.abdurashidov.foodapp.presentation.screens.home.components.AppBar
 import uz.abdurashidov.foodapp.presentation.screens.home.components.DescriptionSection
 import uz.abdurashidov.foodapp.presentation.screens.home.components.MainSection
@@ -46,8 +48,13 @@ import uz.abdurashidov.foodapp.utils.DataState
 fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
     val homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
     val foods by homeScreenViewModel.foods.collectAsState()
+    val isFav by homeScreenViewModel.isFav.collectAsState()
+
+    //ulgurilmadi, shuning uchun yozib ketildi bu viewmodel
+    val favoriteViewModel: FavoriteViewModel = hiltViewModel()
+
     val drawerState = rememberDrawerState(DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
+
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -140,7 +147,16 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
                         items((foods as DataState.Success<List<Food>>).data) { food ->
                             RecommendationItemCard(food = food, foodCardOnClicked = {
                                 navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
-                            })
+                            },
+                                isFav = isFav,
+                                homeScreenViewModel = homeScreenViewModel,
+                                likedOnClicked = { food ->
+                                    if (isFav) {
+                                        favoriteViewModel.deleteFavoriteFood(food = food)
+                                    }else{
+                                        favoriteViewModel.addFavoriteFOod(food = food)
+                                    }
+                                })
                         }
                     }
                 }

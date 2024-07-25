@@ -1,7 +1,9 @@
 package uz.abdurashidov.foodapp.data.local.repositories
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import uz.abdurashidov.foodapp.data.local.mappers.toFood
 import uz.abdurashidov.foodapp.data.local.models.FoodEntity
 import uz.abdurashidov.foodapp.data.local.source.FoodLocalSource
@@ -14,8 +16,10 @@ import javax.inject.Inject
 class LocalFoodRepositoryImpl @Inject constructor(
     private val foodLocalSource: FoodLocalSource
 ) : LocalFoodRepository {
-    override  fun insertFood(food: Food) {
-        foodLocalSource.insertFood(foodEntity = food.toFoodEntity())
+    override suspend fun insertFood(food: Food) {
+        withContext(Dispatchers.IO){
+            foodLocalSource.insertFood(foodEntity = food.toFoodEntity())
+        }
     }
 
     override  fun deleteFood(food: Food) {

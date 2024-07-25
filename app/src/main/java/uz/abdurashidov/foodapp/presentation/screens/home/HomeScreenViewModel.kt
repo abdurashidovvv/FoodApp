@@ -9,12 +9,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import uz.abdurashidov.foodapp.domain.models.Food
 import uz.abdurashidov.foodapp.domain.usecases.GetFoodByCategory.GetFoodByCategoryUseCase
+import uz.abdurashidov.foodapp.domain.usecases.IsFavorite.IsFavoriteUseCase
 import uz.abdurashidov.foodapp.utils.DataState
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val getFoodByCategoryUseCase: GetFoodByCategoryUseCase
+    private val getFoodByCategoryUseCase: GetFoodByCategoryUseCase,
+    private val isFavoriteUseCase: IsFavoriteUseCase
 ) : ViewModel() {
     private val _foods = MutableStateFlow<DataState<List<Food>>>(DataState.Loading())
     val foods: StateFlow<DataState<List<Food>>> = _foods
@@ -22,11 +24,22 @@ class HomeScreenViewModel @Inject constructor(
     init {
         getFoodByCategory(category = "Seafood")
     }
+
     private fun getFoodByCategory(category: String) {
         viewModelScope.launch {
             getFoodByCategoryUseCase.invoke(category = category).collectLatest { foodState ->
                 _foods.value = foodState
             }
+        }
+    }
+
+
+    private val _isFav = MutableStateFlow<Boolean>(false)
+    val isFav: StateFlow<Boolean> = _isFav
+
+    fun isFavoriteUseCase(food: Food) {
+        viewModelScope.launch {
+            isFavoriteUseCase.invoke(food = food)
         }
     }
 }

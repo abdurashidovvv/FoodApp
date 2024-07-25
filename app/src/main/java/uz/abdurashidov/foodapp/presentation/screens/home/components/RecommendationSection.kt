@@ -20,6 +20,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import uz.abdurashidov.foodapp.R
 import uz.abdurashidov.foodapp.domain.models.Food
+import uz.abdurashidov.foodapp.presentation.screens.home.HomeScreenViewModel
 import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
 import uz.abdurashidov.foodapp.presentation.theme.MainTextColor
 
@@ -65,8 +67,14 @@ fun RecommendationSection(modifier: Modifier = Modifier) {
 fun RecommendationItemCard(
     modifier: Modifier = Modifier,
     foodCardOnClicked: (String) -> Unit,
-    food: Food
+    food: Food,
+    likedOnClicked: (Food) -> Unit,
+    homeScreenViewModel: HomeScreenViewModel,
+    isFav: Boolean
 ) {
+    LaunchedEffect(key1 = food) {
+        homeScreenViewModel.isFavoriteUseCase(food = food)
+    }
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFF373737)
@@ -141,9 +149,12 @@ fun RecommendationItemCard(
             }
 
             Image(
-                painter = painterResource(id = R.drawable.like),
+                painter = painterResource(id = if (isFav) R.drawable.like else R.drawable.dislike),
                 contentDescription = null,
                 modifier = Modifier
+                    .clickable {
+                        likedOnClicked(food)
+                    }
                     .size(44.dp)
                     .align(Alignment.TopEnd) // Align to the top end (top right) corner
                     .padding(8.dp) // Add some padding to avoid overlap with the edge
