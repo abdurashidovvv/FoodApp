@@ -14,15 +14,15 @@ import javax.inject.Inject
 class LocalFoodRepositoryImpl @Inject constructor(
     private val foodLocalSource: FoodLocalSource
 ) : LocalFoodRepository {
-    override suspend fun insertFood(food: Food) {
+    override  fun insertFood(food: Food) {
         foodLocalSource.insertFood(foodEntity = food.toFoodEntity())
     }
 
-    override suspend fun deleteFood(food: Food) {
+    override  fun deleteFood(food: Food) {
         foodLocalSource.deleteFoodById(foodId = food.foodId)
     }
 
-    override suspend fun getAllFavoriteFoods(): Flow<DataState<List<Food>>> {
+    override fun getAllFavoriteFoods(): Flow<DataState<List<Food>>> {
         return flow {
             emit(DataState.Loading())
 

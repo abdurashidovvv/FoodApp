@@ -7,12 +7,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,64 +40,80 @@ import uz.abdurashidov.foodapp.utils.DataState
 fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
     val homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
     val foods by homeScreenViewModel.foods.collectAsState()
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
 
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            ModalDrawerSheet {
+                Text(text = "Hello, Denny")
+                Divider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Favorite") },
+                    selected = false,
+                    onClick = { /*TODO*/ }
+                )
+            }
+        }
+    ) {
+        Scaffold {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+                    .background(Color.Black)
+            ) {
+                item {
+                    AppBar(menuOnClicked = {})
+                }
+                item {
+                    DescriptionSection()
+                }
+                item {
+                    SearchBar()
+                }
 
-    Scaffold {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it)
-                .background(Color.Black)
-        ) {
-            item {
-                AppBar(menuOnClicked = {})
-            }
-            item {
-                DescriptionSection()
-            }
-            item {
-                SearchBar()
-            }
+                item {
+                    when (foods) {
+                        is DataState.Error -> {}
+                        is DataState.Loading -> {
+                            Box(modifier = Modifier.fillMaxSize()) {
+                                CircularProgressIndicator()
+                            }
+                        }
 
-            item {
+                        is DataState.Success -> {
+                            MainSection(
+                                foods = (foods as DataState.Success<List<Food>>).data,
+                                foodCardOnClicked = { foodId ->
+                                    navController.navigate(NavigationItem.DetailScreen.route + "/$foodId")
+                                }
+                            )
+                        }
+                    }
+                }
+
+                item {
+                    RecommendationSection()
+                }
+
                 when (foods) {
                     is DataState.Error -> {}
                     is DataState.Loading -> {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            CircularProgressIndicator()
+                        item {
+                            Box(modifier = Modifier.fillMaxSize()) {
+                                CircularProgressIndicator()
+                            }
                         }
                     }
 
                     is DataState.Success -> {
-                        MainSection(
-                            foods = (foods as DataState.Success<List<Food>>).data,
-                            foodCardOnClicked = { foodId ->
-                                navController.navigate(NavigationItem.DetailScreen.route + "/$foodId")
-                            }
-                        )
-                    }
-                }
-            }
-
-            item {
-                RecommendationSection()
-            }
-
-            when (foods) {
-                is DataState.Error -> {}
-                is DataState.Loading -> {
-                    item {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            CircularProgressIndicator()
+                        items((foods as DataState.Success<List<Food>>).data) { food ->
+                            RecommendationItemCard(food = food, foodCardOnClicked = {
+                                navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
+                            })
                         }
-                    }
-                }
-
-                is DataState.Success -> {
-                    items((foods as DataState.Success<List<Food>>).data) { food ->
-                        RecommendationItemCard(food = food, foodCardOnClicked = {
-                            navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
-                        })
                     }
                 }
             }

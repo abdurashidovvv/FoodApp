@@ -21,12 +21,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import uz.abdurashidov.foodapp.R
@@ -36,23 +39,37 @@ import uz.abdurashidov.foodapp.presentation.screens.favorite.components.Favorite
 import uz.abdurashidov.foodapp.presentation.screens.favorite.components.SearchBar
 import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
 import uz.abdurashidov.foodapp.presentation.theme.MainTextColor
+import uz.abdurashidov.foodapp.utils.DataState
 
 @Composable
 fun FavoriteScreen(modifier: Modifier = Modifier, navController: NavController) {
-    val list = ArrayList<Food>()
-    LazyColumn {
-        item {
-            FavoriteBar {
-                navController.navigateUp()
+    val favoriteViewModel: FavoriteViewModel = hiltViewModel()
+    val favoriteFoods by favoriteViewModel.food.collectAsState()
+
+    when (favoriteFoods) {
+        is DataState.Error -> {}
+        is DataState.Loading -> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
             }
         }
-        item {
-            SearchBar()
-        }
-        items(list) { food ->
-            FavoriteCard(favoriteOnClicked = {
-                navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
-            }, food = food)
+
+        is DataState.Success -> {
+            LazyColumn {
+                item {
+                    FavoriteBar {
+                        navController.navigateUp()
+                    }
+                }
+                item {
+                    SearchBar()
+                }
+                items((favoriteFoods as DataState.Success<List<Food>>).data) { food ->
+                    FavoriteCard(favoriteOnClicked = {
+                        navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
+                    }, food = food)
+                }
+            }
         }
     }
 }

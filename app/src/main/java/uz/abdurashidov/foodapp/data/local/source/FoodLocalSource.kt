@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import uz.abdurashidov.foodapp.data.local.models.FoodEntity
 
 interface FoodLocalSource {
-    suspend fun insertFood(foodEntity: FoodEntity)
-    suspend fun getAllFavoriteFoods(): Flow<List<FoodEntity>>
-    suspend fun deleteFoodById(foodId: String)
+    fun insertFood(foodEntity: FoodEntity)
+    fun getAllFavoriteFoods(): Flow<List<FoodEntity>>
+    fun deleteFoodById(foodId: String): Int
 }
