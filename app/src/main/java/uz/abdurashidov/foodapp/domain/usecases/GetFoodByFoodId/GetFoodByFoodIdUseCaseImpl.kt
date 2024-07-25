@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetFoodByFoodIdUseCaseImpl @Inject constructor(
     private val foodServiceRepository: FoodServiceRepository
 ):GetFoodByFoodIdUseCase {
-    override suspend fun invoke(foodId: String): Flow<DataState<List<MealDetail>>> {
+    override suspend fun invoke(foodId: String): Flow<DataState<MealDetail>> {
         return foodServiceRepository.getFoodByFoodId(foodId = foodId)
     }
 }

@@ -6,6 +6,6 @@ import uz.abdurashidov.foodapp.data.remote.models.GetFoodByFoodId.GetFoodByIdRes
 
 interface FoodServiceDataSource {
 
-    suspend fun getMealsByCategory(category: String): Response<GetMealsByCategoryResponse>
-    suspend fun getFoodByFoodId(foodId: String): Response<GetFoodByIdResponse>
+    suspend fun getMealsByCategory(category:String): Response<GetMealsByCategoryResponse>
+    suspend fun getFoodByFoodId(foodId:String): Response<GetFoodByIdResponse>
 }

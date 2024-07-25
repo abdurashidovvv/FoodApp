@@ -29,13 +29,13 @@ class FoodServiceRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getFoodByFoodId(foodId: String): Flow<DataState<List<MealDetail>>> {
+    override suspend fun getFoodByFoodId(foodId: String): Flow<DataState<MealDetail>> {
         return flow {
             emit(DataState.Loading())
 
             val response = foodServiceDataSource.getFoodByFoodId(foodId = foodId)
             if (response.isSuccessful) {
-                emit(DataState.Success(response.body()?.meals!!.map { it.toMealDetail() }))
+                emit(DataState.Success(response.body()?.meals!![0].toMealDetail()))
             }
         }
     }

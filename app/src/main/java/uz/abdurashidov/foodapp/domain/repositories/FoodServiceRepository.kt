@@ -8,5 +8,5 @@ import uz.abdurashidov.foodapp.utils.DataState
 
 interface FoodServiceRepository {
     suspend fun getMealByCategory(category: String): Flow<DataState<List<Food>>>
-    suspend fun getFoodByFoodId(foodId: String): Flow<DataState<List<MealDetail>>>
+    suspend fun getFoodByFoodId(foodId: String): Flow<DataState<MealDetail>>
 }
