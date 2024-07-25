@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import uz.abdurashidov.foodapp.presentation.screens.detail.DetailScreen
+import uz.abdurashidov.foodapp.presentation.screens.favorite.FavoriteScreen
 import uz.abdurashidov.foodapp.presentation.screens.home.HomeScreen
 
 @Composable
@@ -29,6 +30,10 @@ fun AppNavHost(
         ) { backStackEntry ->
             val foodId = backStackEntry.arguments?.getString("foodId") ?: "52959"
             DetailScreen(navController = navController, foodId = foodId)
+        }
+
+        composable(NavigationItem.FavoriteScreen.route) {
+            FavoriteScreen(navController = navController)
         }
     }
 }

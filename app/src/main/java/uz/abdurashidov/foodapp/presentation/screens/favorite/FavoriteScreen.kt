@@ -1,6 +1,7 @@
 package uz.abdurashidov.foodapp.presentation.screens.favorite
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -46,31 +48,39 @@ fun FavoriteScreen(modifier: Modifier = Modifier, navController: NavController) 
     val favoriteViewModel: FavoriteViewModel = hiltViewModel()
     val favoriteFoods by favoriteViewModel.food.collectAsState()
 
-    when (favoriteFoods) {
-        is DataState.Error -> {}
-        is DataState.Loading -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
+    Scaffold {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .padding(it)) {
+            when (favoriteFoods) {
+                is DataState.Error -> {}
+                is DataState.Loading -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                }
+
+                is DataState.Success -> {
+                    LazyColumn {
+                        item {
+                            FavoriteBar {
+                                navController.navigateUp()
+                            }
+                        }
+                        item {
+                            SearchBar()
+                        }
+                        items((favoriteFoods as DataState.Success<List<Food>>).data) { food ->
+                            FavoriteCard(favoriteOnClicked = {
+                                navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
+                            }, food = food)
+                        }
+                    }
+                }
             }
         }
 
-        is DataState.Success -> {
-            LazyColumn {
-                item {
-                    FavoriteBar {
-                        navController.navigateUp()
-                    }
-                }
-                item {
-                    SearchBar()
-                }
-                items((favoriteFoods as DataState.Success<List<Food>>).data) { food ->
-                    FavoriteCard(favoriteOnClicked = {
-                        navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
-                    }, food = food)
-                }
-            }
-        }
     }
 }
 

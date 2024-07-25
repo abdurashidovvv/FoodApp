@@ -12,6 +12,7 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
@@ -24,6 +25,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import uz.abdurashidov.foodapp.domain.models.Food
@@ -34,6 +37,9 @@ import uz.abdurashidov.foodapp.presentation.screens.home.components.MainSection
 import uz.abdurashidov.foodapp.presentation.screens.home.components.RecommendationItemCard
 import uz.abdurashidov.foodapp.presentation.screens.home.components.RecommendationSection
 import uz.abdurashidov.foodapp.presentation.screens.home.components.SearchBar
+import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
+import uz.abdurashidov.foodapp.presentation.theme.LoraSemiBold
+import uz.abdurashidov.foodapp.presentation.theme.MainTextColor
 import uz.abdurashidov.foodapp.utils.DataState
 
 @Composable
@@ -46,16 +52,38 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet {
-                Text(text = "Hello, Denny")
+            ModalDrawerSheet(
+                drawerContainerColor = Color.Black,
+            ) {
+                Text(
+                    text = "Hello, Denny",
+                    fontSize = 24.sp,
+                    fontFamily = LoraSemiBold,
+                    color = MainTextColor,
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp)
+                )
                 Divider()
                 NavigationDrawerItem(
-                    label = { Text(text = "Favorite") },
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
+                    colors = NavigationDrawerItemDefaults.colors(
+                        selectedContainerColor = Color.Black,
+                        unselectedContainerColor = Color.Black,
+                    ),
+                    label = {
+                        Text(
+                            text = "Favorite",
+                            color = Color.White,
+                            fontSize = 18.sp,
+                            fontFamily = LoraRegular
+                        )
+                    },
                     selected = false,
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        navController.navigate(NavigationItem.FavoriteScreen.route)
+                    }
                 )
             }
-        }
+        },
     ) {
         Scaffold {
             LazyColumn(
