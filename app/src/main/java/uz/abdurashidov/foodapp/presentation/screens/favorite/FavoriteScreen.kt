@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import uz.abdurashidov.foodapp.R
 import uz.abdurashidov.foodapp.domain.models.Food
+import uz.abdurashidov.foodapp.presentation.navigation.NavigationItem
 import uz.abdurashidov.foodapp.presentation.screens.favorite.components.FavoriteBar
 import uz.abdurashidov.foodapp.presentation.screens.favorite.components.SearchBar
 import uz.abdurashidov.foodapp.presentation.theme.LoraRegular
@@ -48,8 +49,10 @@ fun FavoriteScreen(modifier: Modifier = Modifier, navController: NavController) 
         item {
             SearchBar()
         }
-        items(list) {
-
+        items(list) { food ->
+            FavoriteCard(favoriteOnClicked = {
+                navController.navigate(NavigationItem.DetailScreen.route + "/${food.foodId}")
+            }, food = food)
         }
     }
 }
