@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import kotlinx.coroutines.launch
 import uz.abdurashidov.foodapp.domain.models.Food
 import uz.abdurashidov.foodapp.presentation.navigation.NavigationItem
 import uz.abdurashidov.foodapp.presentation.screens.favorite.FavoriteViewModel
@@ -50,10 +51,10 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
     val foods by homeScreenViewModel.foods.collectAsState()
     val isFav by homeScreenViewModel.isFav.collectAsState()
 
-    //ulgurilmadi, shuning uchun yozib ketildi bu viewmodel
     val favoriteViewModel: FavoriteViewModel = hiltViewModel()
 
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
+    var drawerState = rememberDrawerState(DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
 
 
     ModalNavigationDrawer(
@@ -100,7 +101,11 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
                     .background(Color.Black)
             ) {
                 item {
-                    AppBar(menuOnClicked = {})
+                    AppBar(menuOnClicked = {
+                        scope.launch {
+                            drawerState.open()
+                        }
+                    })
                 }
                 item {
                     DescriptionSection()
@@ -153,7 +158,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
                                 likedOnClicked = { food ->
                                     if (isFav) {
                                         favoriteViewModel.deleteFavoriteFood(food = food)
-                                    }else{
+                                    } else {
                                         favoriteViewModel.addFavoriteFOod(food = food)
                                     }
                                 })
